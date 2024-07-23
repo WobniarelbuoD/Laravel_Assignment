@@ -8,10 +8,7 @@ class Feedback extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'game_id',
-        'platform',
-        'version',
-        'category',
-        'content',
+        'id',
+        'name'
     ];
 }

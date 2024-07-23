@@ -10,13 +10,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('feedback', function (Blueprint $table) {
+        Schema::create('games', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('game_id');
-            $table->string('platform');
-            $table->string('version');
-            $table->string('category');
-            $table->string('content',255);
+            $table->string('name');
         });
     }
     
@@ -25,6 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('feedback');
+        Schema::dropIfExists('games');
     }
 };
