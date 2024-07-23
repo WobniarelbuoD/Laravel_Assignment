@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('version');
             $table->string('category');
             $table->string('content',255);
+            $table->timestamps();
         });
     }
     
