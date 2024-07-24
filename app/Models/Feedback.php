@@ -12,5 +12,6 @@ class Feedback extends Model
         'version',
         'category',
         'content',
+        'status',
     ];
 }

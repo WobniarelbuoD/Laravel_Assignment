@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Log;
 class FeedbackController extends Controller
 {
     function addFeedback(Request $req){
+        // validation
         $rules=array(
             "game_id"=>"required|max:11|",
             "platform"=>"required|max:45|",
@@ -19,7 +20,6 @@ class FeedbackController extends Controller
             "category"=>"required|max:45|",
             "content"=>"required|min:2|max:255|",
         );
-        
         $validator= Validator::make($req->all(), $rules);
 
         if($validator->fails()){
@@ -30,14 +30,17 @@ class FeedbackController extends Controller
             return response()->json(['message' => 'You have already submitted your feedback.'], 403);
         }
 
+        //Creating a feedback entry
         $feedback= new Feedback();
         $feedback->game_id=$req->game_id;
         $feedback->platform=$req->platform;
         $feedback->version=$req->version;
         $feedback->category=$req->category;
         $feedback->content=$req->content;
+        $feedback->status='New';
         $feedback->save();
         if($feedback){
+            //adding ip address as used.
             $addresses= new Addresses();
             $addresses->address=$req->ip();
             $addresses->feedback_id=$feedback->id;

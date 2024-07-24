@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class EnvTokenAuth
 {
+    //checking authorization token in .env
     public function handle(Request $request, Closure $next)
     {
         $token = $request->header('Authorization');
