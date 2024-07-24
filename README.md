@@ -22,8 +22,9 @@ Things to know: the url for the project is http://127.0.0.1:8000,
 		}
 
 The add feedback request only accepts 1 entry per ip if you want to make multiple entries with the same ip go to: app->Http->Controllers-> FeedbackController.php and remove the lines:
-    else if(DB::table('addresses')->where('address', $req->ip())->exists()){
-        return response()->json(['message' => 'You have already submitted your feedback.'], 403);
-    }
+
+        else if(DB::table('addresses')->where('address', $req->ip())->exists()){
+            return response()->json(['message' => 'You have already submitted your feedback.'], 403);
+        }
 		
 		
