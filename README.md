@@ -6,6 +6,7 @@ Tools Required: XAMPP(Apache and MySQL need to be running), Visual Studio Code, 
 5. run commands: php artisan migrate (write yes to create new database), php artisan db:seed and php artisan serve.
 
 The project should be running now.
+
 Things to know: the url for the project is http://127.0.0.1:8000,
 	the api request to add feedback is http://127.0.0.1:8000/api/add,
 	there is an API_TOKEN variable in the file .env it's value needs to be passed as a header when making a request.
