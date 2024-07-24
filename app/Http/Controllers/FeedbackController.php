@@ -50,12 +50,16 @@ class FeedbackController extends Controller
             return response()->json(['message' => 'Error processing request.', 'result' => $feedback], 400);
         }
     }
-    function getFeedback(){
+    function getFeedback(Request $req){
+        $input = '';
+        if(array_key_exists('Filter', $req->Input()) == 1){
+            $input = $req->Input()['Filter'];
+            log::info('yes');
+        }
         $feedback = DB::table('feedback')
         ->leftJoin('games', 'feedback.game_id', '=', 'games.id')
         ->select('feedback.created_at', 'games.name', 'feedback.status', 'feedback.platform', 'feedback.version', 'feedback.category', 'feedback.content')
-        ->get();
-        Log::info($feedback);
+        ->where('name', 'LIKE', "%{$input}%")->get();
         return view('dashboard', ['feedback' => $feedback]);
     }
 }
