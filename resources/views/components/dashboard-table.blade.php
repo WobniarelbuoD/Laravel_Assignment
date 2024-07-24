@@ -1,5 +1,5 @@
 <div class="container table-container mt-5">
-    <div class="table-responsive">
+    <div>
         <form action="" method="GET" class="form-inline d-flex">
         <table class="table table-striped table-bordered table-hover table-primary">
             <thead class="table-header">
@@ -26,7 +26,7 @@
                         @foreach ($entry as $value)
                             <td>{{ $value }}</td>
                         @endforeach
-                            <td><a class="btn btn-primary" href="#" role="button" id="{{$entry->id}}">Edit</a></td>
+                            <td><a class="btn btn-primary" href="/edit/?id={{$entry->id}}" role="button">Edit</a></td>
                     </tr>
                 @endforeach
             </tbody>

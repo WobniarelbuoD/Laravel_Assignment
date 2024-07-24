@@ -50,6 +50,7 @@ class FeedbackController extends Controller
             return response()->json(['message' => 'Error processing request.', 'result' => $feedback], 400);
         }
     }
+
     function getFeedback(Request $req){
         $inputs = ["created_at"=>"", "name"=>"", "status"=>"", "platform"=>"", "version"=>"", "category"=>"", "content"=>""];
         if(array_keys( $req->Input()) > 0){
@@ -68,5 +69,26 @@ class FeedbackController extends Controller
         ->where('category', 'LIKE', "%{$inputs['category']}%")
         ->where('content', 'LIKE', "%{$inputs['content']}%")->get();
         return view('dashboard', ['feedback' => $feedback]);
+    }
+    function edit(Request $req){
+        $feedback = DB::table('feedback')
+        ->where('id', '=', $req->id)->get();
+        $games = DB::table('games')->get();
+        return view('table-edit', ['feedback' => $feedback, 'games' => $games]);
+    }
+
+    function update(Request $req){
+        log::info($req->input());
+        DB::table('feedback')
+        ->where('id', $req->Input()['id'])
+        ->update([
+            'game_id' => $req->Input()['game'],
+            'status' => $req->Input()['status'],
+            'platform' => $req->Input()['platform'],
+            'version' => $req->Input()['version'],
+            'category' => $req->Input()['category'],
+            'content' => $req->Input()['content']
+        ]);
+        return redirect('/');
     }
 }
