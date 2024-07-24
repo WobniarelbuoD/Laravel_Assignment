@@ -51,15 +51,22 @@ class FeedbackController extends Controller
         }
     }
     function getFeedback(Request $req){
-        $input = '';
-        if(array_key_exists('Filter', $req->Input()) == 1){
-            $input = $req->Input()['Filter'];
-            log::info('yes');
+        $inputs = ["created_at"=>"", "name"=>"", "status"=>"", "platform"=>"", "version"=>"", "category"=>"", "content"=>""];
+        if(array_keys( $req->Input()) > 0){
+            foreach ((array)$req->Input() as $key => $input){
+                $inputs[$key] = $input;
+            }
         }
         $feedback = DB::table('feedback')
         ->leftJoin('games', 'feedback.game_id', '=', 'games.id')
-        ->select('feedback.created_at', 'games.name', 'feedback.status', 'feedback.platform', 'feedback.version', 'feedback.category', 'feedback.content')
-        ->where('name', 'LIKE', "%{$input}%")->get();
+        ->select('feedback.id', 'feedback.created_at', 'games.name', 'feedback.status', 'feedback.platform', 'feedback.version', 'feedback.category', 'feedback.content')
+        ->where('created_at', 'LIKE', "%{$inputs['created_at']}%")
+        ->where('name', 'LIKE', "%{$inputs['name']}%")
+        ->where('status', 'LIKE', "%{$inputs['status']}%")
+        ->where('platform', 'LIKE', "%{$inputs['platform']}%")
+        ->where('version', 'LIKE', "%{$inputs['version']}%")
+        ->where('category', 'LIKE', "%{$inputs['category']}%")
+        ->where('content', 'LIKE', "%{$inputs['content']}%")->get();
         return view('dashboard', ['feedback' => $feedback]);
     }
 }
