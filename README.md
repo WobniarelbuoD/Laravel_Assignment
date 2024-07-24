@@ -12,6 +12,7 @@ Things to know: the url for the project is http://127.0.0.1:8000,
 	there is an API_TOKEN variable in the file .env it's value needs to be passed as a header when making a request.
 	The header should look like this: Key:Authorization, Value:token value
 	the body of the request should look like this:
+ 
 		{
 			"game_id": 1,
 			"platform": "iOS",
@@ -19,6 +20,7 @@ Things to know: the url for the project is http://127.0.0.1:8000,
 			"category": "bug",
 			"content": "The game crashes when I try to start level 3."
 		}
+  
 	The add feedback request only accepts 1 entry per ip if you want to make multiple entries with the same ip go to: app->Http->Controllers-> FeedbackController.php and remove the lines:
 		else if(DB::table('addresses')->where('address', $req->ip())->exists()){
             return response()->json(['message' => 'You have already submitted your feedback.'], 403);
